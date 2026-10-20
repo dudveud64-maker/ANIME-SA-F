@@ -46,280 +46,258 @@ nav button{flex:1;max-width:170px;background:transparent;border:0;color:var(--mu
 <div class="modal" id="devModal"><div class="sheet">
   <div class="sheettop"><strong>⚙️ لوحة المطوّر</strong><button class="close" id="closeDev">✕</button></div>
   <p class="desc">نسخة أولية للتجربة: كود المطوّرين مشترك، وكود المدير الرئيسي منفصل. اكتب اسم الموسم نفسه لإضافة حلقات جديدة إليه.</p>
-  <label for="roleSelect">نوع الدخ
-      <label for="roleSelect">نوع الدخول</label>
-  <select id="roleSelect" class="field"><option value="dev">مطوّر</option><option value="admin">المدير الرئيسي</option></select>
-  <label for="devCode">كود الدخول</label>
-  <input id="devCode" class="field" type="password" placeholder="اكتب كود الدخول">
-  <button class="cta" id="loginDev">دخول</button>
-  <p id="devMsg" class="desc" aria-live="polite"></p>
-  <div id="devPanel" hidden>
-    <hr style="border-color:var(--line)">
-    <h3>إضافة أنمي</h3>
-    <input id="animeTitle" class="field" placeholder="اسم الأنمي">
-    <input id="animeGenre" class="field" placeholder="التصنيف، مثال: إيسيكاي">
-    <input id="animeIcon" class="field" placeholder="رمز تعبيري، مثال: ⚔️" value="✨">
-    <textarea id="animeDesc" class="field" rows="3" placeholder="وصف الأنمي"></textarea>
-    <button class="cta" id="addAnime">إضافة الأنمي</button>
-    <h3 style="margin-top:22px">رفع حلقة من الهاتف</h3>
-    <input id="videoAnime" class="field" placeholder="اسم الأنمي للحلقة">
-    <input id="videoSeason" class="field" placeholder="اسم الموسم، مثال: الموسم 1">
-    <input id="videoEpisode" class="field" placeholder="رقم الحلقة">
-    <input id="videoTitle" class="field" placeholder="عنوان الحلقة">
-    <input id="videoFile" class="field" type="file" accept="video/*">
-    <button class="cta" id="addVideo">حفظ الحلقة على هذا الجهاز</button>
-    <p class="note">الفيديوهات محفوظة في هذا المتصفح فقط. هذا النموذج لا يرفع الفيديو إلى الإنترنت ولا يشارك الملف مع مستخدمين آخرين.</p>
-    <div id="adminTools" hidden>
-      <h3 style="margin-top:22px">إعدادات المدير الرئيسي</h3>
-      <label for="newDevCode">تغيير كود المطوّرين</label>
-      <input id="newDevCode" class="field" type="password" placeholder="الكود الجديد">
-      <button class="secondary" id="changeDevCode">تغيير الكود</button>
-      <h3 style="margin-top:22px">البلاغات المحفوظة</h3>
-      <div id="reportsList"></div>
-      <button class="secondary" id="clearReports">مسح البلاغات من هذا الجهاز</button>
-      <h3 style="margin-top:22px">إدارة الأنميات</h3>
-      <div id="manageAnime"></div>
-    </div>
-    <h3 style="margin-top:22px">الحلقات المحفوظة</h3>
-    <div id="manageEpisodes"></div>
-    <button class="secondary" id="logoutDev" style="margin-top:15px">تسجيل الخروج</button>
+  <label for="roleSelect">نوع الدخول</label><select id="roleSelect" style="display:block;width:100%;margin:8px 0 12px;background:#211a31;border:1px solid #302640;color:white;border-radius:12px;padding:13px;font:inherit"><option value="dev">المطوّر</option><option value="admin">المدير الرئيسي</option></select><label for="devPass">رمز الدخول</label>
+  <input id="devPass" type="password" placeholder="أدخل الرمز" style="display:block;width:100%;margin:8px 0 12px;background:#211a31;border:1px solid #302640;color:white;border-radius:12px;padding:13px;font:inherit">
+  <button class="cta" id="devLogin">دخول</button><p id="devMsg" class="desc" aria-live="polite"></p>
+  <div id="devTools" style="display:none">
+    <hr style="border-color:#302640;margin:18px 0">
+    <label for="episodeAnime">اسم الأنمي</label>
+    <input id="episodeAnime" type="text" placeholder="مثال: أنمي تجريبي" style="display:block;width:100%;margin:8px 0 12px;background:#211a31;border:1px solid #302640;color:white;border-radius:12px;padding:13px;font:inherit">
+    <label for="episodeSeason">اسم الموسم (اكتب نفس الاسم لإضافة حلقات لاحقًا)</label>
+    <input id="episodeSeason" type="text" value="الموسم 1" placeholder="مثال: الموسم الأول" style="display:block;width:100%;margin:8px 0 12px;background:#211a31;border:1px solid #302640;color:white;border-radius:12px;padding:13px;font:inherit">
+    <label for="episodeTitle">عنوان الحلقة (اختياري عند اختيار أكثر من ملف)</label>
+    <input id="episodeTitle" type="text" placeholder="مثال: الحلقة 1 — البداية" style="display:block;width:100%;margin:8px 0 12px;background:#211a31;border:1px solid #302640;color:white;border-radius:12px;padding:13px;font:inherit">
+    <label for="episodeFile">اختار حلقة أو عدّة حلقات من تليفونك</label>
+    <input id="episodeFile" type="file" accept="video/*" multiple style="display:block;width:100%;margin:8px 0 12px;color:white">
+    <button class="cta" id="saveEpisode">حفظ الحلقة في هذا المتصفّح</button>
+    <video id="episodePreview" controls playsinline style="display:none;width:100%;margin-top:14px;border-radius:12px;background:#000"></video>
+    <p class="note">هذه نسخة تجريبية محلية: الحلقات تُحفظ في مساحة المتصفح على هذا الجهاز فقط إذا سمح المتصفح بذلك. ليست منشورة لبقية المستخدمين. لا ترفع إلا فيديوهات تملك حق عرضها.</p>
+    <div id="adminTools" style="display:none"><hr style="border-color:#302640;margin:18px 0"><h3>👑 أدوات المدير الرئيسي</h3><label for="newDevCode">تغيير كود المطوّرين</label><input id="newDevCode" type="password" placeholder="الكود الجديد" style="display:block;width:100%;margin:8px 0 12px;background:#211a31;border:1px solid #302640;color:white;border-radius:12px;padding:13px;font:inherit"><button class="secondary" id="changeDevCode">تغيير الكود</button><p id="adminMsg" class="desc"></p><h3>حذف أنمي وحلقاته من هذا الجهاز</h3><div id="animeDeleteList"></div><p class="note">الحذف هنا محلي في هذا الجهاز فقط، وليس من سيرفر عام.</p></div><div class="featurebox" id="reportsPanel"><h3>📬 بلاغات المستخدمين</h3><div id="reportsList"></div><button class="secondary" id="clearReports" style="margin-top:10px">مسح البلاغات المحفوظة محليًا</button><p class="note">البلاغات المعروضة هنا من نفس المتصفح فقط، وليست مشتركة عبر الإنترنت.</p></div><div id="savedEpisodesAdmin"></div>
   </div>
 </div></div>
-
 <script>
-"use strict";
-
-const ADMIN_CODE = "CHANGE-THIS-ADMIN-CODE";
-let DEV_CODE = "SAIF-DEV-2026";
-const $ = id => document.getElementById(id);
-
-const starterAnime = [
- {id:"a1",title:"The Eminence in Shadow",genre:"إيسيكاي",icon:"🌑",c1:"#352047",c2:"#101020",score:"9.0",desc:"شاب يعيش حياة مزدوجة ويبحث عن القوة من وراء الستار. أكشن وغموض وقوى خارقة."},
- {id:"a2",title:"The Great Cleric",genre:"إيسيكاي",icon:"✨",c1:"#24504e",c2:"#132431",score:"7.5",desc:"شاب يولد من جديد في عالم سحري ويحاول التقدم بالتدريب والمثابرة."},
- {id:"a3",title:"Hachi-nan tte, Sore wa Nai deshou!",genre:"إيسيكاي",icon:"🪄",c1:"#51417b",c2:"#211b3d",score:"6.8",desc:"شاب يستيقظ في عالم جديد ويكتشف موهبة سحرية تغيّر حياته."},
- {id:"a4",title:"Rokudenashi Majutsu Koushi to Akashic Records",genre:"سحر",icon:"📘",c1:"#244b77",c2:"#18152e",score:"7.1",desc:"أستاذ سحر غير تقليدي يخفي قدرات ومعرفة غير متوقعة."},
- {id:"a5",title:"Even Given the Worthless Appraiser Class, I'm Actually the Strongest",genre:"إيسيكاي",icon:"💎",c1:"#3c4f75",c2:"#171b38",score:"6.4",desc:"مغامرة بطل يبدأ من تصنيف يراه الجميع ضعيفًا ثم يكشف قدراته."},
- {id:"a6",title:"The Banished Former Hero Lives as He Pleases",genre:"مغامرة",icon:"⚔️",c1:"#70413d",c2:"#241629",score:"6.2",desc:"بطل سابق يحاول عيش حياة جديدة بعيدًا عن التوقعات القديمة."},
- {id:"a7",title:"Death March to the Parallel World Rhapsody",genre:"إيسيكاي",icon:"🌍",c1:"#27635b",c2:"#172238",score:"6.6",desc:"مبرمج يجد نفسه في عالم خيالي مليء بالمغامرات والسحر."},
- {id:"a8",title:"Hai to Gensou no Grimgar",genre:"إيسيكاي",icon:"🌲",c1:"#48614d",c2:"#1b2a29",score:"7.6",desc:"مجموعة تستيقظ في عالم غريب وتحاول النجاة والتعلم والعمل كفريق."},
- {id:"a9",title:"KonoSuba",genre:"كوميديا",icon:"💥",c1:"#4c64a0",c2:"#34264d",score:"7.8",desc:"مغامرات كوميدية في عالم خيالي مع فريق غير عادي."},
- {id:"a10",title:"Overlord",genre:"إيسيكاي",icon:"💀",c1:"#543044",c2:"#17111d",score:"8.0",desc:"لاعب يجد نفسه داخل عالم خيالي في هيئة شخصية قوية."},
- {id:"a11",title:"Okashi na Tensei",genre:"إيسيكاي",icon:"🍰",c1:"#7c5267",c2:"#38213f",score:"6.7",desc:"إعادة ولادة في عالم خيالي مع اهتمام بصناعة الحلويات وإدارة الأرض."},
- {id:"a12",title:"Rakudai Kenja no Gakuin Musou",genre:"سحر",icon:"🔮",c1:"#58418c",c2:"#201533",score:"7.0",desc:"قوى سحرية وأحداث في عالم يعتمد على القدرات والتدريب."}
+const animeList=[
+{id:1,title:"That Time I Got Reincarnated as a Slime",ar:"حياتي عندما أُعيد تجسيدي كسلايم",genre:["إيسيكاي","سحر","مغامرة"],type:"إيسيكاي • فانتازيا",seasons:"عدّة مواسم",score:"8.1",emoji:"🌀",c1:"#145c76",c2:"#5a2d87",desc:"رجل يُعاد تجسيده في عالم خيالي على هيئة سلايم، ويبدأ ببناء مجتمع جديد وتكوين صداقات وقوى مميزة."},
+{id:2,title:"Mushoku Tensei: Jobless Reincarnation",ar:"موشوكو تينسي",genre:["إيسيكاي","سحر","مغامرة"],type:"إيسيكاي • فانتازيا",seasons:"عدّة أجزاء",score:"8.2",emoji:"✨",c1:"#87552c",c2:"#4a376c",desc:"فرصة ثانية للحياة في عالم مليء بالسحر والمغامرات، مع رحلة طويلة للتعلّم والنمو."},
+{id:3,title:"The Eminence in Shadow",ar:"ذا إيميننس إن شادو",genre:["إيسيكاي","سحر","أكشن"],type:"إيسيكاي • أكشن",seasons:"موسمان",score:"8.2",emoji:"🌑",c1:"#18233f",c2:"#63328a",desc:"شاب يعيش خياله في الظلال، لكنّ خططه تتحوّل إلى أحداث أكبر بكثير ممّا توقّع."},
+{id:4,title:"The Great Cleric",ar:"ذا غريت كليريك",genre:["إيسيكاي","سحر","مغامرة"],type:"إيسيكاي • فانتازيا",seasons:"موسم متاح",score:"7.1",emoji:"🪄",c1:"#276b61",c2:"#273b7a",desc:"شاب يُولد من جديد في عالم آخر ويختار طريق المعالجة والتدرّب ليصبح أقوى."},
+{id:5,title:"Black Clover",ar:"بلاك كلوفر",genre:["سحر","أكشن","مغامرة"],type:"فانتازيا • أكشن",seasons:"حلقات كثيرة",score:"8.1",emoji:"🍀",c1:"#1f633f",c2:"#1c2f53",desc:"في عالم يعتمد على السحر، يحلم أستا بأن يصبح ملك السحرة رغم بدايته الصعبة."},
+{id:6,title:"Mashle: Magic and Muscles",ar:"ماشلي",genre:["سحر","أكشن","كوميديا"],type:"فانتازيا • كوميديا",seasons:"موسمان",score:"7.6",emoji:"💪",c1:"#477e8c",c2:"#b18b48",desc:"في عالم السحر، يعتمد ماش على قوّته البدنية غير العادية ويقع في مواقف مضحكة ومليئة بالتحدّي."},
+{id:7,title:"Re:ZERO -Starting Life in Another World-",ar:"ري:زيرو",genre:["إيسيكاي","سحر","مغامرة"],type:"إيسيكاي • دراما",seasons:"عدّة مواسم",score:"8.1",emoji:"⏳",c1:"#623a7a",c2:"#283e69",desc:"شاب يجد نفسه في عالم آخر، وتتحوّل رحلته إلى سلسلة من الأسرار والقرارات الصعبة."},
+{id:8,title:"Solo Leveling",ar:"سولو ليفلينغ",genre:["أكشن","مغامرة"],type:"فانتازيا • أكشن",seasons:"مواسم متاحة",score:"8.5",emoji:"⚔️",c1:"#172a53",c2:"#5a347c",desc:"صيّاد ضعيف يحصل على فرصة فريدة للتطوّر ومواجهة تحدّيات أقوى مع كل خطوة."},
+{id:9,title:"KonoSuba",ar:"كونوسوبا",genre:["إيسيكاي","كوميديا","مغامرة"],type:"إيسيكاي • كوميديا",seasons:"عدّة مواسم",score:"7.8",emoji:"💥",c1:"#287a9b",c2:"#7b3b82",desc:"مغامرة في عالم آخر مع فريق غريب الأطوار ومواقف كوميدية كثيرة."},
+{id:10,title:"The Banished Former Hero Lives as He Pleases",ar:"البطل السابق المنفي",genre:["سحر","أكشن","مغامرة"],type:"فانتازيا • أكشن",seasons:"موسم متاح",score:"6.4",emoji:"🗡️",c1:"#6e633b",c2:"#344b70",desc:"بعد أن يُستبعد من عائلته، يحاول بطل سابق أن يعيش بحرية ويشقّ طريقه الخاص."},
+{id:11,title:"Rokudenashi Majutsu Koushi",ar:"أكاشيك ريكوردز",genre:["سحر","أكشن","كوميديا"],type:"سحر • مدرسي",seasons:"موسم متاح",score:"7.6",emoji:"📘",c1:"#384d8b",c2:"#6b397b",desc:"أستاذ سحر يبدو كسولًا، لكنّه يخفي أسلوبًا مختلفًا وقدرات مفاجئة."},
+{id:12,title:"Hai to Gensou no Grimgar",ar:"غريمار: الرماد والأوهام",genre:["إيسيكاي","مغامرة"],type:"إيسيكاي • مغامرة",seasons:"موسم متاح",score:"7.6",emoji:"🌲",c1:"#446c50",c2:"#6a4b71",desc:"مجموعة تستيقظ في عالم غامض وتحاول البقاء على قيد الحياة بالتعاون والتعلّم."}
 ];
+let selectedCat="الكل",view="home",favorites=new Set(JSON.parse(localStorage.getItem("saifAnimeFavs")||"[]"));
+const grid=document.getElementById("grid"),search=document.getElementById("search");
+function render(){const q=search.value.trim().toLowerCase();let list=animeList.filter(a=>{const matchesCat=selectedCat==="الكل"||a.genre.includes(selectedCat);const matchesQ=(a.title+" "+a.ar+" "+a.genre.join(" ")).toLowerCase().includes(q);const matchesView=view!=="favorites"||favorites.has(a.id);return matchesCat&&matchesQ&&matchesView});document.getElementById("listTitle").textContent=view==="favorites"?"أنمياتك المفضّلة ❤️":selectedCat==="الكل"?"أنميات تستحقّ الاكتشاف ✨":selectedCat+" — اختياراتنا";document.getElementById("resultCount").textContent=list.length+" أنمي";document.getElementById("favCount").textContent=favorites.size;if(!list.length){grid.innerHTML='<div class="empty">ما لقيناش نتائج هنا 😅<br>جرّب كلمة أخرى أو زِد أنميات للمفضّلة.</div>';return}grid.innerHTML=list.map(a=>`<article class="card" data-open="${a.id}"><div class="poster" style="--c1:${a.c1};--c2:${a.c2}"><span class="score">★ ${a.score}</span><button class="heart ${favorites.has(a.id)?"saved":""}" data-fav="${a.id}" aria-label="إضافة للمفضلة">${favorites.has(a.id)?"♥":"♡"}</button><span class="symbol">${a.emoji}</span></div><div class="cardbody"><div class="cardtitle">${a.ar}</div><div class="meta"><span>${a.type}</span><span>•</span><span>${a.seasons}</span></div><span class="tag">${a.genre[0]}</span></div></article>`).join("");}
+function saveFav(id){id=Number(id);favorites.has(id)?favorites.delete(id):favorites.add(id);localStorage.setItem("saifAnimeFavs",JSON.stringify([...favorites]));render()}
+function openDetail(id){const a=animeList.find(x=>x.id===Number(id));if(!a)return;document.getElementById("detail").innerHTML=`<div class="detailhero" style="background:linear-gradient(125deg,${a.c1},${a.c2})"><div class="detailicon">${a.emoji}</div><div><h2>${a.ar}</h2><div style="font-size:12px;color:#eee">${a.title}</div><div style="margin-top:8px">★ ${a.score}　•　${a.seasons}</div></div></div><p class="desc">${a.desc}</p><p><strong>التصنيفات:</strong> ${a.genre.join("، ")}</p><div class="actions"><button class="cta" id="detailFav">${favorites.has(a.id)?"♥ في المفضّلة":"♡ أضف للمفضّلة"}</button><button class="secondary" id="searchMore">🔎 ابحث عن مصادر قانونية</button></div><div class="note">المشاهدة: النسخة الحالية لا تستضيف حلقات. استعمل خدمات رسمية مرخّصة في منطقتك، وتحقّق من توفّر الأنمي قبل المشاهدة.</div>`;document.getElementById("modal").classList.add("open");document.getElementById("detailFav").onclick=()=>{saveFav(a.id);openDetail(a.id)};document.getElementById("searchMore").onclick=()=>{const url="https://www.google.com/search?q="+encodeURIComponent(a.title+" official streaming legal");window.open(url,"_blank","noopener")}}
+grid.addEventListener("click",e=>{const fav=e.target.closest("[data-fav]");if(fav){e.stopPropagation();saveFav(fav.dataset.fav);return}const card=e.target.closest("[data-open]");if(card)openDetail(card.dataset.open)});
+document.getElementById("closeModal").onclick=()=>document.getElementById("modal").classList.remove("open");document.getElementById("modal").addEventListener("click",e=>{if(e.target.id==="modal")e.currentTarget.classList.remove("open")});
+search.addEventListener("input",render);document.getElementById("tabs").addEventListener("click",e=>{const b=e.target.closest("[data-cat]");if(!b)return;selectedCat=b.dataset.cat;document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("active",x===b));view="discover";document.querySelectorAll("nav button").forEach(x=>x.classList.toggle("active",x.dataset.view===view));render()});
+function setView(v){view=v;if(v==="home"){selectedCat="الكل";search.value="";document.querySelectorAll(".tab").forEach((x,i)=>x.classList.toggle("active",i===0))}if(v==="discover")selectedCat="الكل";document.querySelectorAll("nav button").forEach(x=>x.classList.toggle("active",x.dataset.view===v));render()}
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>setView(b.dataset.view));document.getElementById("headFav").onclick=()=>setView("favorites");document.getElementById("explore").onclick=()=>{document.getElementById("tabs").scrollIntoView({behavior:"smooth",block:"start"});setView("discover")};
+render();
 
-let animeList = [...starterAnime];
-let favorites = new Set();
-let activeCategory = "الكل";
-let activeView = "home";
-let currentAnime = null;
+// نموذج واجهة محلي فقط. الأكواد في HTML ليست حماية آمنة؛ الإنتاج يحتاج خادمًا.
+const DEMO_ADMIN_CODE = "es7g6n54na";
+let DEMO_DEV_CODE = "SAIF-DEV-2026";
+const devModal = document.getElementById("devModal");
+const devMsg = document.getElementById("devMsg");
+const devTools = document.getElementById("devTools");
+const adminTools = document.getElementById("adminTools");
 let currentRole = null;
-let videoRecords = [];
-let db = null;
-
-try {
-  animeList = JSON.parse(localStorage.getItem("saifAnimeList")) || [...starterAnime];
-  favorites = new Set(JSON.parse(localStorage.getItem("saifAnimeFavorites")) || []);
-  DEV_CODE = localStorage.getItem("saifDevCode") || DEV_CODE;
-} catch (e) {}
-
-function saveAnime() {
-  localStorage.setItem("saifAnimeList", JSON.stringify(animeList));
-}
-function saveFavorites() {
-  localStorage.setItem("saifAnimeFavorites", JSON.stringify([...favorites]));
-}
-function escapeHTML(value) {
-  return String(value ?? "").replace(/[&<>"']/g, ch => ({
-    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-  })[ch]);
-}
-function showModal(id) {
-  $(id).classList.add("open");
-}
-function hideModal(id) {
-  $(id).classList.remove("open");
-}
-
-function renderAnime() {
-  const query = $("search").value.trim().toLowerCase();
-  let filtered = animeList.filter(a => {
-    const matchQuery = (a.title + " " + a.genre + " " + a.desc).toLowerCase().includes(query);
-    const matchCat = activeCategory === "الكل" || a.genre.includes(activeCategory);
-    const matchView = activeView !== "favorites" || favorites.has(a.id);
-    return matchQuery && matchCat && matchView;
-  });
-
-  $("listTitle").textContent = activeView === "favorites" ? "أنمياتي المفضّلة ♡" : "أنميات تستحقّ الاكتشاف ✨";
-  $("resultCount").textContent = filtered.length + " أنمي";
-  $("favCount").textContent = favorites.size;
-  $("grid").innerHTML = filtered.length ? filtered.map(a => `
-    <article class="card" data-open="${escapeHTML(a.id)}">
-      <div class="poster" style="--c1:${escapeHTML(a.c1 || "#38254d")};--c2:${escapeHTML(a.c2 || "#161222")}">
-        <span class="score">★ ${escapeHTML(a.score || "—")}</span>
-        <button class="heart ${favorites.has(a.id) ? "saved" : ""}" data-fav="${escapeHTML(a.id)}" aria-label="إضافة للمفضلة">${favorites.has(a.id) ? "♥" : "♡"}</button>
-        <span class="symbol">${escapeHTML(a.icon || "✨")}</span>
-      </div>
-      <div class="cardbody"><div class="cardtitle">${escapeHTML(a.title)}</div><div class="meta"><span>${escapeHTML(a.genre)}</span></div><span class="tag">تفاصيل الأنمي</span></div>
-    </article>`).join("") : '<div class="empty">ما لقيناش أنمي مطابق للبحث. جرّب اسمًا آخر أو بدّل التصنيف.</div>';
-}
-</script>
-<script>
-function openAnime(id) {
-  const a = animeList.find(item => item.id === id);
-  if (!a) return;
-  currentAnime = a;
-  $("detail").innerHTML = `
-    <div class="detailhero">
-      <div class="detailicon">${escapeHTML(a.icon || "✨")}</div>
-      <div><h2>${escapeHTML(a.title)}</h2>
-      <p>${escapeHTML(a.genre)} · ★ ${escapeHTML(a.score || "—")}</p></div>
-    </div>
-    <p class="desc">${escapeHTML(a.desc || "ما فماش وصف متوفر.")}</p>
-    <div class="actions">
-      <button class="cta" id="detailFav">${favorites.has(a.id) ? "♥ إزالة من المفضّلة" : "♡ أضف للمفضّلة"}</button>
-      <button class="secondary" id="detailReport">📝 الإبلاغ عن مشكلة</button>
-    </div>
-    <div class="featurebox"><h3>الحلقات</h3><div id="detailEpisodes">جاري تحميل الحلقات...</div></div>`;
-  showModal("modal");
-  $("detailFav").onclick = () => toggleFavorite(a.id);
-  $("detailReport").onclick = () => {
-    hideModal("modal");
-    $("reportText").value = "الأنمي: " + a.title + "\nالمشكلة: ";
-    showModal("reportModal");
-  };
-  renderEpisodes(a.title, "detailEpisodes");
-}
-
-function toggleFavorite(id) {
-  if (favorites.has(id)) favorites.delete(id);
-  else favorites.add(id);
-  saveFavorites();
-  renderAnime();
-  if (currentAnime && $("modal").classList.contains("open")) openAnime(currentAnime.id);
-}
-
-function renderEpisodes(animeTitle, targetId) {
-  const target = $(targetId);
-  const list = videoRecords.filter(v => v.animeTitle.toLowerCase() === animeTitle.toLowerCase());
-  if (!list.length) {
-    target.innerHTML = '<p class="desc">ما فماش حلقات مضافة   الهذا الأنمي على هذا
-      <script>
-$("loginDev").onclick = () => {
-  const role = $("roleSelect").value;
-  const code = $("devCode").value;
-
-  if (role === "admin" && code === ADMIN_CODE) {
-    currentRole = "admin";
-  } else if (role === "dev" && code === DEV_CODE) {
-    currentRole = "dev";
+let currentVideoUrl = null;
+document.getElementById("devEntry").onclick = () => {
+  devModal.classList.add("open");
+  devMsg.textContent = "";
+};
+document.getElementById("closeDev").onclick = () => {
+  devModal.classList.remove("open");
+};
+devModal.addEventListener("click", e => {
+  if (e.target === devModal) devModal.classList.remove("open");
+});
+document.getElementById("devLogin").onclick = () => {
+  const role = document.getElementById("roleSelect").value;
+  const pass = document.getElementById("devPass").value;
+  const ok = role === "admin" ? pass === DEMO_ADMIN_CODE : pass === DEMO_DEV_CODE;
+  if (ok) {
+    currentRole = role;
+    devTools.style.display = "block";
+    adminTools.style.display = role === "admin" ? "block" : "none";
+    devMsg.textContent = role === "admin" ? "دخلت كمدير رئيسي — أدوات الإدارة متاحة." : "دخلت كمطوّر — تنجم تضيف الحلقات.";
+    devMsg.style.color = "#a7f3d0";
+    renderAdminAnimeList();
   } else {
-    $("devMsg").textContent = "كود الدخول غير صحيح.";
-    return;
+    devMsg.textContent = "الكود غير صحيح.";
+    devMsg.style.color = "#fda4af";
   }
-
-  $("devMsg").textContent = "تم الدخول في هذه النسخة التجريبية.";
-  openDevPanel();
 };
-
-$("devEntry").onclick = () => {
-  $("devMsg").textContent = "";
-  $("devCode").value = "";
-  showModal("devModal");
+document.getElementById("changeDevCode").onclick = () => {
+  if (currentRole !== "admin") return;
+  const next = document.getElementById("newDevCode").value.trim();
+  if (next.length < 8) { document.getElementById("adminMsg").textContent = "اختار كودًا من 8 أحرف أو أكثر."; return; }
+  DEMO_DEV_CODE = next;
+  document.getElementById("newDevCode").value = "";
+  document.getElementById("adminMsg").textContent = "تبدّل كود المطوّرين في هذه الجلسة التجريبية فقط. إعادة تحميل الصفحة ترجع الكود التجريبي.";
 };
-
-$("closeDev").onclick = () => hideModal("devModal");
-
-$("logoutDev").onclick = () => {
-  currentRole = null;
-  $("devPanel").hidden = true;
-  $("devCode").value = "";
-  $("devMsg").textContent = "تم تسجيل الخروج.";
-};
-
-$("addAnime").onclick = () => {
-  if (!currentRole) return alert("سجّل الدخول أولًا.");
-  const title = $("animeTitle").value.trim();
-  const genre = $("animeGenre").value.trim() || "مغامرة";
-  const icon = $("animeIcon").value.trim() || "✨";
-  const desc = $("animeDesc").value.trim();
-
-  if (!title) return alert("اكتب اسم الأنمي.");
-
-  animeList.unshift({
-    id: "custom-" + Date.now(),
-    title,
-    genre,
-    icon,
-    desc,
-    score: "—",
-    c1: "#49315f",
-    c2: "#171222"
+const DB_NAME = "saifAnimeLibrary";
+const DB_VERSION = 1;
+let db = null;
+function openEpisodeDB() {
+  return new Promise((resolve, reject) => {
+    if (!("indexedDB" in window)) { reject(new Error("المتصفح لا يدعم التخزين المحلي المطلوب.")); return; }
+    const req = indexedDB.open(DB_NAME, DB_VERSION);
+    req.onupgradeneeded = () => {
+      const d = req.result;
+      if (!d.objectStoreNames.contains("episodes")) d.createObjectStore("episodes", { keyPath: "id", autoIncrement: true });
+    };
+    req.onsuccess = () => { db = req.result; resolve(db); };
+    req.onerror = () => reject(req.error || new Error("تعذّر فتح قاعدة البيانات."));
   });
-
-  saveAnime();
-  renderAnime();
-  renderManageAnime();
-
-  $("animeTitle").value = "";
-  $("animeGenre").value = "";
-  $("animeIcon").value = "✨";
-  $("animeDesc").value = "";
-  alert("تمت إضافة الأنمي على هذا الجهاز.");
-};
-
-$("addVideo").onclick = async () => {
-  if (!currentRole) return alert("سجّل الدخول أولًا.");
-
-  const animeTitle = $("videoAnime").value.trim();
-  const season = $("videoSeason").value.trim() || "الموسم 1";
-  const episode = $("videoEpisode").value.trim();
-  const title = $("videoTitle").value.trim();
-  const file = $("videoFile").files[0];
-
-  if (!animeTitle || !episode || !file) {
-    return alert("اكتب اسم الأنمي ورقم الحلقة واختر ملف فيديو.");
-  }
-
-  if (!file.type.startsWith("video/")) {
-    return alert("اختار ملف فيديو صحيح.");
-  }
-
-  if (!db) return alert("قاعدة التخزين المحلية غير جاهزة. جرّب فتح الموقع من جديد.");
-
-  const record = {
-    id: "video-" + Date.now(),
-    animeTitle,
-    season,
-    episode,
-    title: title || `الحلقة ${episode}`,
-    fileName: file.name,
-    blob: file,
-    createdAt: new Date().toISOString()
-  };
-
+}
+async function allEpisodes() {
+  const d = db || await openEpisodeDB();
+  return new Promise((resolve, reject) => {
+    const r = d.transaction("episodes", "readonly").objectStore("episodes").getAll();
+    r.onsuccess = () => resolve(r.result || []);
+    r.onerror = () => reject(r.error);
+  });
+}
+async function addEpisode(record) {
+  const d = db || await openEpisodeDB();
+  return new Promise((resolve, reject) => {
+    const r = d.transaction("episodes", "readwrite").objectStore("episodes").add(record);
+    r.onsuccess = () => resolve(r.result);
+    r.onerror = () => reject(r.error);
+  });
+}
+async function deleteEpisode(id) {
+  const d = db || await openEpisodeDB();
+  return new Promise((resolve, reject) => {
+    const r = d.transaction("episodes", "readwrite").objectStore("episodes").delete(Number(id));
+    r.onsuccess = resolve;
+    r.onerror = () => reject(r.error);
+  });
+}
+function escapeHtml(s) { return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+async function renderEpisodes() {
+  const host = document.getElementById("episodeLibrary");
+  const adminHost = document.getElementById("savedEpisodesAdmin");
   try {
-    await saveVideo(record);
-    await loadVideos();
-    renderManageEpisodes();
-    $("videoAnime").value = "";
-    $("videoSeason").value = "";
-    $("videoEpisode").value = "";
-    $("videoTitle").value = "";
-    $("videoFile").value = "";
-    alert("تم حفظ الفيديو على هذا الجهاز فقط.");
-  } catch (error) {
-    alert("تعذّر حفظ الفيديو. ربما المساحة غير كافية.");
+    const eps = await allEpisodes();
+    document.getElementById("episodeCount").textContent = eps.length + (eps.length === 1 ? " حلقة" : " حلقات");
+    if (!eps.length) host.innerHTML = '<div class="empty">ما فماش حلقات مضافة توّا. المطوّر ينجم يضيف فيديو يملك حق عرضه.</div>';
+    else host.innerHTML = eps.map(ep => `<article class="card"><div class="poster" style="--c1:#33214c;--c2:#7b3b82"><span class="symbol">▶️</span></div><div class="cardbody"><div class="cardtitle">${escapeHtml(ep.anime)} — ${escapeHtml(ep.title)}</div><div class="meta">${escapeHtml(ep.season || "الموسم 1")} • فيديو محلي</div><button class="cta" style="margin-top:10px;width:100%" data-play-ep="${ep.id}">شاهد الحلقة</button></div></article>`).join("");
+    adminHost.innerHTML = eps.length ? '<h3>الحلقات المحفوظة</h3>' + eps.map(ep => `<div class="note">${escapeHtml(ep.anime)} — ${escapeHtml(ep.season || "الموسم 1")} — ${escapeHtml(ep.title)} <button class="secondary" data-delete-ep="${ep.id}">حذف</button></div>`).join("") : "";
+  } catch (err) {
+    host.innerHTML = '<div class="empty">التخزين المحلي غير متاح في هذا المتصفح. جرّب فتح الملف في متصفح الهاتف.</div>';
+    document.getElementById("episodeCount").textContent = "غير متاح";
+  }
+}
+function playEpisode(id) {
+  allEpisodes().then(eps => {
+    const ep = eps.find(x => x.id === Number(id));
+    if (!ep) return;
+    const modal = document.getElementById("modal");
+    const detail = document.getElementById("detail");
+    if (currentVideoUrl) URL.revokeObjectURL(currentVideoUrl);
+    currentVideoUrl = URL.createObjectURL(ep.video);
+    detail.innerHTML = `<h2>${escapeHtml(ep.anime)} — ${escapeHtml(ep.title)}</h2><video id="episodePlayer" controls autoplay playsinline style="width:100%;margin:12px 0;border-radius:12px;background:#000"><source src="${currentVideoUrl}"></video>`;
+    modal.classList.add("open");
+  }).catch(() => { alert("تعذّر فتح الحلقة في هذا المتصفح."); });
+}
+document.getElementById("saveEpisode").onclick = async () => {
+  const fileInput = document.getElementById("episodeFile");
+  const videos = Array.from(fileInput.files || []);
+  const anime = document.getElementById("episodeAnime").value.trim();
+  const title = document.getElementById("episodeTitle").value.trim();
+  const season = document.getElementById("episodeSeason").value.trim() || "الموسم 1";
+  if (!videos.length || videos.some(v => !v.type.startsWith("video/"))) { devMsg.textContent = "اختار ملف فيديو واحد على الأقل."; return; }
+  if (!anime) { devMsg.textContent = "اكتب اسم الأنمي."; return; }
+  if (videos.length === 1 && !title) { devMsg.textContent = "اكتب عنوان الحلقة."; return; }
+  try {
+    for (let i = 0; i < videos.length; i++) {
+      const video = videos[i];
+      const cleanName = video.name.replace(/\.[^.]+$/, "").replace(/[_-]+/g, " ").trim();
+      const episodeName = title && videos.length === 1 ? title : (cleanName || `الحلقة ${i+1}`);
+      await addEpisode({anime, season, title: episodeName, video, addedAt: Date.now()});
+    }
+    devMsg.textContent = `تم حفظ ${videos.length} حلقة في ${season}. تنجم ترجع وتكتب نفس اسم الموسم لإضافة حلقات جديدة إليه.`;
+    devMsg.style.color = "#a7f3d0";
+    fileInput.value = ""; document.getElementById("episodeTitle").value = "";
+    await renderEpisodes();
+  } catch (e) {
+    devMsg.textContent = "تعذّر الحفظ. يمكن الملفات كبيرة أو مساحة المتصفح غير كافية.";
+    devMsg.style.color = "#fda4af";
   }
 };
-
-$("changeDevCode").onclick = () => {
-  if (currentRole !== "admin") return alert("هذه الخاصية للمدير الرئيسي فقط.");
-  const newCode = $("newDevCode").value.trim();
-  if (newCode.length < 8) {
-    return alert("اختار كودًا جديدًا من 8 أحرف أو أكثر.");
+document.getElementById("episodeLibrary").addEventListener("click", e => {
+  const b = e.target.closest("[data-play-ep]");
+  if (b) playEpisode(b.dataset.playEp);
+});
+document.getElementById("savedEpisodesAdmin").addEventListener("click", async e => {
+  const b = e.target.closest("[data-delete-ep]");
+  if (!b) return;
+  if (confirm("متأكد تحب تحذف الحلقة من هذا المتصفح؟")) {
+    await deleteEpisode(b.dataset.deleteEp);
+    await renderEpisodes();
   }
-  DEV_CODE = newCode;
-  localStorage.setItem("saifDevCode", DEV_CODE);
-  $("newDevCode").value = "";
-  alert("تم تغيير كود المطوّرين
+});
+async function renderAdminAnimeList() {
+  const host = document.getElementById("animeDeleteList");
+  if (!host) return;
+  host.innerHTML = animeList.map(a => `<div class="note">${escapeHtml(a.ar)} <button class="secondary" data-delete-anime="${a.id}">حذف الأنمي</button></div>`).join("");
+}
+document.getElementById("animeDeleteList").addEventListener("click", async e => {
+  const b = e.target.closest("[data-delete-anime]");
+  if (!b || currentRole !== "admin") return;
+  const a = animeList.find(x => x.id === Number(b.dataset.deleteAnime));
+  if (!a || !confirm(`متأكد تحب تحذف "${a.ar}" من قائمة الأنميات التجريبية؟`)) return;
+  const eps = await allEpisodes();
+  for (const ep of eps.filter(x => x.anime.toLowerCase() === a.ar.toLowerCase() || x.anime.toLowerCase() === a.title.toLowerCase())) await deleteEpisode(ep.id);
+  const idx = animeList.findIndex(x => x.id === a.id);
+  if (idx >= 0) animeList.splice(idx, 1);
+  render(); renderAdminAnimeList(); renderEpisodes();
+});
+// صوت الترحيب: يعمل بعد تفاعل المستخدم، حسب دعم المتصفح.
+const voiceToggle = document.getElementById("voiceToggle");
+const voiceEnabledKey = "saifAnimeWelcomeVoice";
+function voiceEnabled(){ return localStorage.getItem(voiceEnabledKey) === "on"; }
+function updateVoiceButton(){ voiceToggle.textContent = voiceEnabled() ? "🔕 إيقاف صوت الترحيب" : "🔊 تفعيل صوت الترحيب"; }
+function speakWelcome(){
+  if (!("speechSynthesis" in window) || !("SpeechSynthesisUtterance" in window)) { alert("المتصفح هذا ما يدعمش الصوت الآلي. جرّب Chrome محدّث."); return; }
+  window.speechSynthesis.cancel();
+  const msg = new SpeechSynthesisUtterance("Welcome to SAIF ANIME, enjoy watching!");
+  msg.lang = "en-US"; msg.rate = 0.92; msg.pitch = 1.12;
+  const voices = window.speechSynthesis.getVoices();
+  const candidate = voices.find(v => /female|samantha|zira|aria|jenny/i.test(v.name) && /^en/i.test(v.lang)) || voices.find(v => /^en/i.test(v.lang));
+  if (candidate) msg.voice = candidate;
+  window.speechSynthesis.speak(msg);
+}
+updateVoiceButton();
+voiceToggle.addEventListener("click", () => { localStorage.setItem(voiceEnabledKey, voiceEnabled() ? "off" : "on"); updateVoiceButton(); if (voiceEnabled()) speakWelcome(); else if ("speechSynthesis" in window) window.speechSynthesis.cancel(); });
+document.getElementById("voiceTest").addEventListener("click", speakWelcome);
+if (voiceEnabled() && !sessionStorage.getItem("saifWelcomeSpoken")) { sessionStorage.setItem("saifWelcomeSpoken", "yes"); setTimeout(() => { if (voiceEnabled()) speakWelcome(); }, 700); }
+
+// بلاغات تجريبية محلية: لا تُرسل إلى خادم أو إلى أجهزة أخرى.
+const reportModal = document.getElementById("reportModal");
+const reportsKey = "saifAnimeReportsLocal";
+function getReports(){ try { return JSON.parse(localStorage.getItem(reportsKey) || "[]"); } catch { return []; } }
+function renderReports(){
+  const host = document.getElementById("reportsList"); if (!host) return;
+  const reports = getReports();
+  host.innerHTML = reports.length ? reports.slice().reverse().map(r => `<div class="note"><strong>${escapeHtml(r.type)}</strong><p>${escapeHtml(r.text)}</p><small>${escapeHtml(r.date)}</small></div>`).join("") : '<p class="desc">ما فماش بلاغات محفوظة في هذا المتصفح.</p>';
+}
+document.getElementById("openReport").onclick = () => { document.getElementById("reportMsg").textContent = ""; reportModal.classList.add("open"); };
+document.getElementById("closeReport").onclick = () => reportModal.classList.remove("open");
+reportModal.addEventListener("click", e => { if (e.target === reportModal) reportModal.classList.remove("open"); });
+document.getElementById("sendReport").onclick = () => {
+  const text = document.getElementById("reportText").value.trim();
+  if (text.length < 5) { document.getElementById("reportMsg").textContent = "اكتب تفاصيل أكثر شوية (5 أحرف على الأقل)."; return; }
+  const reports = getReports(); reports.push({type: document.getElementById("reportType").value, text, date: new Date().toLocaleString(), id: Date.now()});
+  try { localStorage.setItem(reportsKey, JSON.stringify(reports)); document.getElementById("reportText").value = ""; document.getElementById("reportMsg").textContent = "تسجّل البلاغ في هذا المتصفح. ملاحظة: ما وصلش لسيرفر عام."; renderReports(); }
+  catch { document.getElementById("reportMsg").textContent = "ما نجّمش نحفظ البلاغ؛ مساحة التخزين غير متاحة."; }
+};
+document.getElementById("clearReports").onclick = () => { if (currentRole && confirm("تمسح البلاغات المحلية من هذا المتصفح؟")) { localStorage.removeItem(reportsKey); renderReports(); } };
+const originalDevLoginHandler = document.getElementById("devLogin").onclick;
+// نحدّث عرض البلاغات بعد تسجيل الدخول من غير ما نغيّر نظام الدخول الموجود.
+document.getElementById("devLogin").addEventListener("click", () => setTimeout(renderReports, 0));
+renderReports();
+renderEpisodes();
+</script>
+</body></html>
